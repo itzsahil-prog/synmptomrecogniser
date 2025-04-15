@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Symptom Recognition</title>
+    <script src="script2.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f8fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            color: #7f8c8d;
+        }
+        
+        .search-container {
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .symptom-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .symptom-suggestion {
+            background-color: #e9f7fe;
+            color: #0984e3;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .symptom-suggestion:hover {
+            background-color: #0984e3;
+            color: white;
+        }
+        
+        .selected-symptoms {
+            margin-bottom: 20px;
+        }
+        
+        .selected-symptom {
+            background-color: #0984e3;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            margin: 5px;
+        }
+        
+        .remove-btn {
+            background: none;
+            border: none;
+            color: white;
+            margin-left: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .analyze-btn {
+            padding: 12px 24px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+            transition: all 0.2s;
+        }
+        
+        .analyze-btn:hover {
+            background-color: #27ae60;
+        }
+        
+        .reset-btn {
+            padding: 12px 24px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        
+        .reset-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .results-container {
+            margin-top: 30px;
+        }
+        
+        .results-title {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .condition-card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .condition-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .condition-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .urgency {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .urgency-low {
+            background-color: #e9f7ef;
+            color: #27ae60;
+        }
+        
+        .urgency-medium {
+            background-color: #fef9e7;
+            color: #f39c12;
+        }
+        
+        .urgency-high {
+            background-color: #fae5d3;
+            color: #d35400;
+        }
+        
+        .urgency-emergency {
+            background-color: #fadbd8;
+            color: #c0392b;
+        }
+        
+        .condition-body {
+            padding: 15px;
+        }
+        
+        .condition-description {
+            margin-bottom: 15px;
+        }
+        
+        .match-score {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .match-symptoms {
+            margin-bottom: 15px;
+        }
+        
+        .match-symptoms span {
+            background-color: #e9f7fe;
+            color: #0984e3;
+            padding: 4px 10px;
+            border-radius: 15px;
+            margin-right: 5px;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        
+        .advice {
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        
+        .advice-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .disclaimer {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #fcf3cf;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading-spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .condition-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .urgency {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Medical Symptom Recognition</h1>
+            <p>Select your symptoms to get possible conditions and recommendations</p>
+        </header>
+        
+        <div class="search-container">
+            <input type="text" id="symptomSearch" class="search-input" placeholder="Search for symptoms...">
+            <div id="symptomSuggestions" class="symptom-list"></div>
+        </div>
+        
+        <div class="selected-symptoms">
+            <h3>Selected Symptoms:</h3>
+            <div id="selectedSymptomsList" class="symptom-list"></div>
+        </div>
+        
+        <div class="button-group">
+            <button id="analyzeBtn" class="analyze-btn">Analyze Symptoms</button>
+            <button id="resetBtn" class="reset-btn">Reset</button>
+        </div>
+        
+        <div id="loading" class="loading" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Analyzing symptoms...</p>
+        </div>
+        
+        <div id="resultsContainer" class="results-container" style="display: none;">
+            <h2 class="results-title">Possible Conditions</h2>
+            <div id="resultsList"></div>
+        </div>
+        
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> This tool is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const symptomDatabase = [
+        { id: 1, name: 'Headache' },
+        { id: 2, name: 'Fever' },
+        { id: 3, name: 'Cough' },
+        { id: 4, name: 'Fatigue' },
+        { id: 5, name: 'Sore throat' },
+        { id: 6, name: 'Shortness of breath' },
+        { id: 7, name: 'Nausea' },{ id: 8, name: 'Dizziness' },
+        { id: 9, name: 'Chest pain' },
+        { id: 10, name: 'Abdominal pain' },
+        { id: 11, name: 'Joint pain' },
+        { id: 12, name: 'Runny or stuffy nose' },
+        { id: 13, name: 'Muscle aches' },
+        { id: 14, name: 'Loss of taste or smell' },
+        { id: 15, name: 'Vomiting' },
+        { id: 16, name: 'Diarrhea' },
+        { id: 17, name: 'Rash' },
+        { id: 18, name: 'Blurred vision' },
+        { id: 19, name: 'Back pain' },
+        { id: 20, name: 'Loss of appetite' }
+    ];
+    const conditionDatabase = [
+        {
+            id: 1,
+            name: 'Common Cold',
+            symptoms: [3, 5, 12, 4],
+            urgency: 'Low',
+            description: 'A viral infectious disease of the upper respiratory tract that affects the nose, throat, sinuses, and larynx.',
+            advice: 'Rest, stay hydrated, and take over-the-counter cold medications if needed. Symptoms usually resolve within 7-10 days.'
+        },
+        {
+            id: 2,
+            name: 'Influenza (Flu)',
+            symptoms: [2, 3, 4, 5, 11, 13],
+            urgency: 'Medium',
+            description: 'A contagious respiratory illness caused by influenza viruses that can cause mild to severe illness.',
+            advice: 'Rest, stay hydrated, and consider antiviral medications if diagnosed early. Consult a doctor if symptoms are severe.'
+        },
+        {
+            id: 3,
+            name: 'COVID-19',
+            symptoms: [2, 3, 4, 5, 6, 14, 16],
+            urgency: 'High',
+            description: 'A respiratory illness caused by the SARS-CoV-2 virus with varying symptoms and severity.',
+            advice: 'Isolate, get tested, and contact your healthcare provider. Follow local health guidelines and monitor symptoms closely.'
+        },
+        {
+            id: 4,
+            name: 'Migraine',
+            symptoms: [1, 7, 8, 18],
+            urgency: 'Medium',
+            description: 'A headache of varying intensity, often accompanied by nausea and sensitivity to light and sound.',
+            advice: 'Rest in a dark, quiet room and consider over-the-counter pain relievers. Consult a doctor for recurring migraines.'
+        },{
+            id: 5,
+            name: 'Heart Attack',
+            symptoms: [9, 6, 8, 4, 7],
+            urgency: 'Emergency',
+            description: 'A serious medical emergency where blood flow to the heart is blocked, causing damage to heart muscle.',
+            advice: 'Call emergency services (911) immediately! This is a life-threatening condition requiring immediate medical attention.'
+        },
+        {
+            id: 6,
+            name: 'Appendicitis',
+            symptoms: [10, 2, 7, 15],
+            urgency: 'Emergency',
+            description: 'Inflammation of the appendix that requires immediate medical attention to prevent rupture.',
+            advice: 'Seek immediate medical attention at the nearest emergency room. Surgery is typically required to remove the appendix.'
+        },
+        {
+            id: 7,
+            name: 'Strep Throat',
+            symptoms: [5, 2, 1, 4],
+            urgency: 'Medium',
+            description: 'A bacterial infection that can cause a sore, scratchy throat and fever.',
+            advice: 'See a doctor for testing and possible antibiotics. Rest, stay hydrated, and take pain relievers as needed.'
+        },
+        {
+            id: 8,
+            name: 'Food Poisoning',
+            symptoms: [7, 15, 16, 10, 2],
+            urgency: 'Medium',
+            description: 'Illness caused by eating contaminated food, resulting in digestive symptoms.',
+            advice: 'Stay hydrated, rest, and eat bland foods when able. Seek medical attention if symptoms are severe or persist.'
+        },
+        {
+            id: 9,
+            name: 'Allergic Reaction',
+            symptoms: [17, 6, 3, 5],
+            urgency: 'High',
+            description: 'An immune system response to a foreign substance that is not typically harmful to the body.',
+            advice: 'Take antihistamines if mild. For severe reactions with difficulty breathing, seek emergency care immediately.'
+        },
+        {
+            id: 10,
+            name: 'Gastroenteritis',
+            symptoms: [7, 15, 16, 2, 4, 20],
+            urgency: 'Medium',
+            description: 'Inflammation of the stomach and intestines, typically resulting from viral or bacterial infections.',
+            advice: 'Stay hydrated, rest, and eat bland foods. Seek medical attention if unable to keep fluids down or symptoms worsen.'
+        }
+    ];
+
+    // Elements
+    const symptomSearch = document.getElementById('symptomSearch');
+    const symptomSuggestions = document.getElementById('symptomSuggestions');
+    const selectedSymptomsList = document.getElementById('selectedSymptomsList');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const loading = document.getElementById('loading');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const resultsList = document.getElementById('resultsList');
+
+    // Selected symptoms array
+    let selectedSymptoms = [];
+
+    // Event listeners
+    symptomSearch.addEventListener('input', showSymptomSuggestions);
+    analyzeBtn.addEventListener('click', analyzeSymptoms);
+    resetBtn.addEventListener('click', resetForm);
+
+    // Show symptom suggestions based on search
+    function showSymptomSuggestions() {
+        const searchTerm = symptomSearch.value.toLowerCase();
+        symptomSuggestions.innerHTML = '';
+
+        if (searchTerm.trim() === '') return; // Fix: Clear suggestions if input is empty
+
+        const filteredSymptoms = symptomDatabase.filter(
+            symptom => 
+                symptom.name.toLowerCase().includes(searchTerm) && 
+                !selectedSymptoms.includes(symptom.id)
+        );
+
+        filteredSymptoms.forEach(symptom => {
+            const suggestionEl = document.createElement('div');
+            suggestionEl.classList.add('symptom-suggestion');
+            suggestionEl.textContent = symptom.name;
+            suggestionEl.addEventListener('click', () => addSymptom(symptom));
+            symptomSuggestions.appendChild(suggestionEl);
+        });
+    }
+    function addSymptom(symptom) {
+        if (!selectedSymptoms.includes(symptom.id)) {
+            selectedSymptoms.push(symptom.id);
+            updateSelectedSymptomsList();
+            symptomSearch.value = '';
+            symptomSuggestions.innerHTML = '';
+        }
+    }
+    function removeSymptom(symptomId) {
+        selectedSymptoms = selectedSymptoms.filter(id => id !== symptomId);
+        updateSelectedSymptomsList();
+    }
+    function updateSelectedSymptomsList() {
+        selectedSymptomsList.innerHTML = '';
+        
+        if (selectedSymptoms.length === 0) {
+            const noSymptomsEl = document.createElement('p');
+            noSymptomsEl.textContent = 'No symptoms selected';
+            selectedSymptomsList.appendChild(noSymptomsEl);
+            return;
+        }
+
+        selectedSymptoms.forEach(symptomId => {
+            const symptom = symptomDatabase.find(s => s.id === symptomId);
+            
+            const symptomEl = document.createElement('div');
+            symptomEl.classList.add('selected-symptom');
+            symptomEl.textContent = symptom.name;
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.classList.add('remove-btn');
+            removeBtn.textContent = '×';
+            removeBtn.addEventListener('click', () => removeSymptom(symptomId));
+            
+            symptomEl.appendChild(removeBtn);
+            selectedSymptomsList.appendChild(symptomEl);
+        });
+    }
+    function analyzeSymptoms() {
+        if (selectedSymptoms.length === 0) {
+            alert('Please select at least one symptom');
+            return;
+        }
+
+        loading.style.display = 'block';
+        resultsContainer.style.display = 'none';
+        resultsList.innerHTML = ''; // Fix: Clear previous results before analyzing
+
+        setTimeout(() => {
+            const matchingConditions = conditionDatabase.map(condition => {
+                const matchingSymptoms = selectedSymptoms.filter(s => condition.symptoms.includes(s));
+                const matchScore = matchingSymptoms.length / condition.symptoms.length;
+                
+                return {
+                    ...condition,
+                    matchingSymptomCount: matchingSymptoms.length,
+                    matchScore: matchScore,
+                    matchingSymptoms: matchingSymptoms
+                };
+            }).filter(c => c.matchScore > 0)
+            .sort((a, b) => b.matchScore - a.matchScore);
+            
+            displayResults(matchingConditions);
+            loading.style.display = 'none';
+            resultsContainer.style.display = 'block';
+        }, 1500);
+    }
+    function displayResults(conditions) {
+        resultsList.innerHTML = '';
+        
+        if (conditions.length === 0) {
+            resultsList.innerHTML = '<p>No matching conditions found for your symptoms.</p>';
+            return;
+        }
+
+        conditions.forEach(condition => {
+            const conditionCard = document.createElement('div');
+            conditionCard.classList.add('condition-card');
+            
+            // Card header
+            const cardHeader = document.createElement('div');
+            cardHeader.classList.add('condition-header');
+            
+            const conditionName = document.createElement('h3');
+            conditionName.classList.add('condition-name');
+            conditionName.textContent = condition.name;
+            
+            const urgencyBadge = document.createElement('span');
+            urgencyBadge.classList.add('urgency', `urgency-${condition.urgency.toLowerCase()}`);
+            urgencyBadge.textContent = condition.urgency;
+            
+            cardHeader.appendChild(conditionName);
+            cardHeader.appendChild(urgencyBadge);
+            
+            // Card body
+            const cardBody = document.createElement('div');
+            cardBody.classList.add('condition-body');
+            
+            const description = document.createElement('p');
+            description.classList.add('condition-description');
+            description.textContent = condition.description;
+            
+            const matchScore = document.createElement('p');
+            matchScore.classList.add('match-score');
+            const scorePercentage = Math.round(condition.matchScore * 100);
+            matchScore.textContent = `Match probability: ${scorePercentage}%`;
+            
+            const matchSymptoms = document.createElement('div');
+            matchSymptoms.classList.add('match-symptoms');
+            matchSymptoms.innerHTML = '<strong>Matching symptoms:</strong><br>';
+            
+            condition.matchingSymptoms.forEach(symptomId => {
+                const symptom = symptomDatabase.find(s => s.id === symptomId);
+                const symptomSpan = document.createElement('span');
+                symptomSpan.textContent = symptom.name;
+                matchSymptoms.appendChild(symptomSpan);
+            });
+            
+            cardBody.appendChild(description);
+            cardBody.appendChild(matchScore);
+            cardBody.appendChild(matchSymptoms);
+            
+            // Advice section
+            const adviceSection = document.createElement('div');
+            adviceSection.classList.add('advice');
+            
+            const adviceTitle = document.createElement('p');
+            adviceTitle.classList.add('advice-title');
+            adviceTitle.textContent = 'Medical Advice:';
+            
+            const adviceText = document.createElement('p');
+            adviceText.textContent = condition.advice;
+            
+            adviceSection.appendChild(adviceTitle);
+            adviceSection.appendChild(adviceText);
+            
+            // Assemble card
+            conditionCard.appendChild(cardHeader);
+            conditionCard.appendChild(cardBody);
+            conditionCard.appendChild(adviceSection);
+            
+            resultsList.appendChild(conditionCard);
+        });
+    }
+    function resetForm() {
+        selectedSymptoms = [];
+        updateSelectedSymptomsList();
+        symptomSearch.value = '';
+        symptomSuggestions.innerHTML = '';
+        resultsContainer.style.display = 'none';
+        resultsList.innerHTML = ''; // Fix: Clear results when resetting
+    }
+    updateSelectedSymptomsList();
+});
+ document.addEventListener('DOMContentLoaded', () => {
+     const symptomSearch = document.getElementById('symptomSearch');
+     const symptomSuggestions = document.getElementById('symptomSuggestions');
+
+     symptomSearch.addEventListener('input', () => {
+         if (symptomSearch.value.trim() === '') {
+             symptomSuggestions.innerHTML = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
