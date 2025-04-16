@@ -1,7 +1,3 @@
-Below is a detailed `README.md` file for your **symptomrecogniser** repository. It is structured to provide useful information about the project and its potential features.
-
----
-
 # Symptom Recogniser
 
 **Symptom Recogniser** is a lightweight and simple web-based application designed to help users identify symptoms and provide basic information. Built entirely using HTML, this project serves as a starting point for further development, allowing integration with advanced features like symptom databases, AI-driven diagnosis, or user interactivity.
