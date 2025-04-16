@@ -1,36 +1,21 @@
 # Symptom Recogniser
 
-**Symptom Recogniser** is a lightweight and simple web-based application designed to help users identify symptoms and provide basic information. Built entirely using HTML, this project serves as a starting point for further development, allowing integration with advanced features like symptom databases, AI-driven diagnosis, or user interactivity.
+**Symptom Recogniser** is a simple and interactive web-based application designed to help users identify symptoms and provide relevant information. Built entirely using HTML, this project serves as a foundation for further enhancements like adding symptom databases, user interactivity, or integrating backend logic.
 
 ---
 
 ## Features
 
-- 📋 **Symptom Listing**: Displays a clear and concise list of symptoms for easy identification.
-- 🌐 **Lightweight and Responsive**: Built using 100% HTML, ensuring fast load times and compatibility with all modern browsers and devices.
-- 🚀 **Customizable**: Can be easily extended with additional functionality such as search filters, dynamic symptom descriptions, or integration with medical APIs.
+- 📋 **Symptom Listing**: Displays a list of symptoms for easy identification.
+- 🌐 **Lightweight and Responsive**: Fully responsive design, ensuring compatibility with all modern browsers and devices.
+- ⚡ **Customizable**: Easily extendable to include additional functionality such as filters or backend integration.
 
 ---
 
-## Technical Information
+## Live Website
 
-### Technology Stack
-
-- **HTML**: Used to create the structure and layout of the application. It provides the framework for displaying the symptom recogniser interface.
-
-### File Structure
-
-- **`index.html`**: The entry point of the application. This file contains the content and layout for the symptom recogniser interface, including the list of symptoms and any additional information.
-
-### Deployment
-
-This application is static and does not require a backend server for deployment. It can be hosted on any platform that supports static files, such as GitHub Pages.
-
-#### Deploying on GitHub Pages:
-1. Navigate to the repository settings on GitHub.
-2. Go to the "Pages" section.
-3. Under "Source," select the branch (e.g., `main`) and the folder (e.g., `/root`) to deploy.
-4. Save the settings and get the live link to access your application.
+You can view the live version of the Symptom Recogniser application here:  
+[**Symptom Recogniser Website**](https://itzsahil-prog.github.io/synmptomrecogniser/)
 
 ---
 
@@ -52,70 +37,22 @@ To run the application on your local system, follow these steps:
 
 ---
 
-## Potential Use Cases & Extensions
+## Deployment
 
-The Symptom Recogniser can serve as a foundational project for several use cases:
+The application is deployed using **GitHub Pages**. If you'd like to deploy or update the website:
 
-- **Integration with Medical APIs**:
-  - Connect to APIs (e.g., [Medical Symptoms API](https://rapidapi.com/collection/medical-symptoms)) to fetch symptom and condition data dynamically.
-- **Search and Filters**:
-  - Add JavaScript functionality for searching and filtering symptoms based on user input.
-- **Interactive User Interface**:
-  - Enhance the UI using CSS or frameworks like Bootstrap for a more engaging user experience.
-- **AI and Machine Learning Integration**:
-  - Combine with AI models to provide possible diagnoses or recommendations based on selected symptoms.
-- **Responsive Design**:
-  - Add responsive styling to ensure the application is mobile-friendly.
-
----
-
-## Roadmap
-
-Here are some ideas to improve and expand this project:
-
-1. **Dynamic Content**:
-   - Use JavaScript to dynamically update the list of symptoms or fetch data from an external source.
-2. **Styling Enhancements**:
-   - Add CSS for improved aesthetics and better user experience.
-3. **Backend Integration**:
-   - Connect to a backend server for storing user inputs and providing personalized results.
-4. **User Authentication**:
-   - Allow users to create accounts and save their symptom search history.
-
----
-
-## Contributing
-
-Contributions are welcome! If you’d like to enhance the project, follow these steps:
-
-1. Fork the repository.
-2. Create a new branch for your changes:
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Description of changes"
-   ```
-4. Push your branch:
-   ```bash
-   git push origin feature-name
-   ```
-5. Open a Pull Request on GitHub.
+1. Ensure that your `index.html` file is in the repository's root directory.
+2. Navigate to the repository settings on GitHub.
+3. Go to the "Pages" section.
+4. Under "Source," select the branch (e.g., `main`) and the folder (e.g., `/root`) to deploy.
+5. Save the settings, and your application will be live at the provided URL.
 
 ---
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE). Feel free to use and modify it as per your needs.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-## Acknowledgments
-
-- This project is inspired by the need for simple, user-friendly tools for symptom recognition.
-- Thanks to the open-source community for their resources and support.
-
---- 
-
-Feel free to let me know if you'd like to add more sections or specific details!
+Let me know if you'd like to add more details or sections!
