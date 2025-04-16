@@ -15,7 +15,7 @@
 ## Live Website
 
 You can view the live version of the Symptom Recogniser application here:  
-[**Symptom Recogniser Website**](https://itzsahil-prog.github.io/synmptomrecogniser/)
+[**Symptom Recogniser Website**](https://itzsahil-prog.github./synmptomrecogniser/)
 
 ---
 
