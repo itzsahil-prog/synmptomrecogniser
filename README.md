@@ -8,6 +8,8 @@ Symptom Recogniser is a lightweight and simple web-based application designed to
 ---
 
 Features
+
+
 📋 Symptom Listing: Displays a clear and concise list of symptoms for easy identification. This feature is crucial as it allows users to quickly find and understand their symptoms without sifting through excessive medical jargon. For example, someone experiencing fatigue can readily identify this symptom and explore potential related conditions such as anemia or sleep apnea.
 
 🌐 Lightweight and Responsive: Built using 100% HTML, ensuring fast load times and compatibility with all modern browsers and devices. The lightweight nature of the application means users can access it even in areas with limited internet connectivity, making it a valuable resource in both urban and rural settings. The responsive design ensures that whether a user is on a desktop, tablet, or smartphone, they will have a seamless experience.
