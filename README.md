@@ -15,7 +15,7 @@
 ## Live Website
 
 You can view the live version of the Symptom Recogniser application here:  
-[**Symptom Recogniser Website**]([https://sites.google.com/view/medisymptom/home/])
+[**Symptom Recogniser Website**]([https://sites.google.com/view/medisymptom/home])
 
 ---
 
