@@ -1,9 +1,10 @@
 [build]
   publish = "."
-  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "18"
+  MONGODB_URI = "mongodb+srv://itzsahilg1_db_mediconnect:<db_password>@cluster0mediconnect.uaefbft.mongodb.net/?appName=Cluster0Mediconnectyour_mongodb_atlas_connection_string_here"
+  JWT_SECRET = "your_jwt_secret_here"
 
 [[redirects]]
   from = "/api/*"
@@ -12,7 +13,3 @@
 
 [functions]
   directory = "netlify/functions"
-
-[build.environment]
-  MONGODB_URI = "your_mongodb_atlas_connection_string_here"
-  JWT_SECRET = "your_jwt_secret_here"
